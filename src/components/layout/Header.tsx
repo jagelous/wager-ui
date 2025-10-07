@@ -11,7 +11,7 @@ export function Header() {
   const [query, setQuery] = React.useState("");
 
   return (
-    <header className="sticky top-0 py-6 w-full bg-[#16182c]">
+    <header className="sticky z-20 top-0 py-6 w-full bg-[#16182c]">
       <div className="flex h-16  justify-between items-center gap-[88px] px-4 sm:px-6">
         <div className="flex gap-8">
           <button

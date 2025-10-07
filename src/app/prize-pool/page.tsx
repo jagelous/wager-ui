@@ -1,43 +1,118 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function PrizePoolPage() {
+  const predictionPoolsData = [
+    {
+      id: 1,
+      title: "Benfica vs Barca",
+      category: "Football",
+      categoryIcon: "/icon/football.svg",
+      image: "/image/football.avif",
+    },
+    {
+      id: 2,
+      title: "Altman VS Elon",
+      category: "World Events",
+      categoryIcon: "/icon/events.svg",
+      image: "/image/world_events.avif",
+    },
+    {
+      id: 3,
+      title: "Lakers VS Bulls",
+      category: "World Basketball",
+      categoryIcon: "/icon/basketball.svg",
+      image: "/image/basketball.avif",
+    },
+    {
+      id: 4,
+      title: "Ethereum VS Solana",
+      category: "Crypto",
+      categoryIcon: "/icon/crypto.svg",
+      image: "/image/crypto.avif",
+    },
+  ];
+
+  const leaderboardData = [
+    {
+      id: 1,
+      name: "Global User",
+      points: 500,
+      gradient: "from-pink-500 to-purple-500",
+    },
+    {
+      id: 2,
+      name: "Global User",
+      points: 400,
+      gradient: "from-purple-500 to-pink-500",
+    },
+    {
+      id: 3,
+      name: "Global User",
+      points: 450,
+      gradient: "from-yellow-500 to-green-500",
+    },
+    {
+      id: 4,
+      name: "Global User",
+      points: 390,
+      gradient: "from-blue-500 to-purple-500",
+    },
+    {
+      id: 5,
+      name: "Global User",
+      points: 425,
+      gradient: "from-yellow-500 to-pink-500",
+    },
+    {
+      id: 6,
+      name: "Global User",
+      points: 375,
+      gradient: "from-pink-500 to-purple-500",
+    },
+  ];
+
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-8">
       {/* Hero Banner */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] p-8">
-        <div className="relative z-10 flex items-center justify-between">
+        <div className="relative z-10 flex items-end justify-between">
           <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <Image
                 src="/icon/logo.svg"
                 alt="WVS Logo"
-                width={48}
-                height={48}
-                className="h-12 w-12"
+                width={60}
+                height={60}
+                className="h-[60px] w-auto"
               />
               <div>
-                <h1 className="text-3xl font-bold text-white">
+                <h1 className="text-[40px] font-normal text-white">
                   Global Pricepool
                 </h1>
-                <p className="text-white/70">
-                  Earn entry points just for using the platform.
-                </p>
               </div>
             </div>
+            <p className="text-white/70">
+              Earn entry points just for using the platform.
+            </p>
           </div>
-
-          <div className="flex flex-col items-end gap-2">
-            <div className="rounded-lg bg-white/10 p-4 text-center">
-              <div className="text-3xl font-bold text-white">2,125,000</div>
-              <div className="text-lg font-semibold text-[#FFC940]">$VS</div>
+          <div className="mt-[116px] bg-white/20 rounded-lg p-4 border border-white/10">
+            <div className="flex flex-col items-center gap-4">
+              <div className="rounded-lg bg-black/10 border border-black/10 py-4 px-6 text-center flex items-center gap-2 text-[48px]">
+                <label className="font-bold text-white">2,125,000</label>
+                <label className="font-semibold text-[#FEDE00]">$</label>
+                <label className="font-semibold text-[#1FE6E5]">VS</label>
+              </div>
+              <label className="text-[16px]">
+                Next drawing:
+                <label className="font-semibold text-[24px]"> 15:35:45</label>
+              </label>
             </div>
-            <div className="text-sm text-white/60">Next drawing: 15:35:45</div>
           </div>
         </div>
 
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0">
           <Image
             src="/image/prize_main.avif"
             alt="Background pattern"
@@ -48,40 +123,34 @@ export default function PrizePoolPage() {
       </div>
 
       {/* How it works and Leaderboard */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div className="flex justify-between items-start gap-8">
         {/* How it works */}
-        <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-          <h2 className="mb-4 text-xl font-semibold text-white">
+        <div className="flex flex-[1_1_50%] flex-col gap-4">
+          <label className="text-[18px] font-semibold text-white">
             How it works
-          </h2>
-          <div className="space-y-4">
-            <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1FE6E5]/20">
-                <span className="text-2xl">🎲</span>
-              </div>
-              <div>
+          </label>
+          <div className="bg-black/10 border border-white/10 rounded-lg">
+            <div className="flex items-start gap-4 p-4 border-b border-white/10">
+              <Image src="/icon/dice.svg" alt="Dice" width={48} height={48} />
+              <div className="flex flex-col justify-between">
                 <h3 className="font-medium text-white">Predict</h3>
                 <p className="text-sm text-white/70">
                   Make or create a prediction on the platform.
                 </p>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#9A2BD8]/20">
-                <span className="text-2xl">💰</span>
-              </div>
-              <div>
+            <div className="flex items-start gap-4 p-4 border-b border-white/10">
+              <Image src="/icon/earn.svg" alt="Earn" width={48} height={48} />
+              <div className="flex flex-col justify-between">
                 <h3 className="font-medium text-white">Earn</h3>
                 <p className="text-sm text-white/70">
                   Receive entry points for accuracy + platform usage.
                 </p>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFC940]/20">
-                <span className="text-2xl">🏆</span>
-              </div>
-              <div>
+            <div className="flex items-start gap-4 p-4 border-b border-white/10">
+              <Image src="/icon/win.svg" alt="Win" width={48} height={48} />
+              <div className="flex flex-col justify-between">
                 <h3 className="font-medium text-white">Win</h3>
                 <p className="text-sm text-white/70">
                   Your entries are automatically submitted into the bi-weekly
@@ -93,86 +162,62 @@ export default function PrizePoolPage() {
         </div>
 
         {/* Leaderboard */}
-        <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-white">Leaderboard</h2>
-            <Button
-              variant="ghost"
-              className="text-[#1FE6E5] hover:text-[#1FE6E5]/80"
-            >
+        <div className="flex flex-[1_1_50%] flex-col gap-4">
+          <div className="flex items-center justify-between">
+            <label className="text-[18px] font-semibold text-white">
+              Leaderboard
+            </label>
+            <label className="text-[#1FE6E5] hover:text-[#1FE6E5]/80">
               View All &gt;&gt;
-            </Button>
+            </label>
           </div>
-          <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-gradient-to-r from-[#1FE6E5] to-[#9A2BD8] p-0.5">
-                <div className="h-full w-full rounded-full bg-gray-800"></div>
+          <div className="grid grid-cols-2">
+            {leaderboardData.map((user) => (
+              <div className="p-4 bg-black/10 border border-white/10 rounded-lg">
+                <div key={user.id} className="flex items-center gap-4">
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src="" alt={user.name} />
+                    <AvatarFallback
+                      className={`bg-gradient-to-r ${user.gradient} text-white`}
+                    >
+                      {user.name.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1">
+                    <div className="text-sm font-semibold text-white">
+                      {user.name}
+                    </div>
+                    <label className="text-xs text-[#FFC940] flex gap-1 items-center">
+                      {user.points} <label className="text-white">pts</label>
+                    </label>
+                  </div>
+                </div>
               </div>
-              <div className="flex-1">
-                <div className="text-sm font-medium text-white">Player 1</div>
-                <div className="text-xs text-white/60">500 pts</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-gradient-to-r from-[#9A2BD8] to-[#FFC940] p-0.5">
-                <div className="h-full w-full rounded-full bg-gray-800"></div>
-              </div>
-              <div className="flex-1">
-                <div className="text-sm font-medium text-white">Player 2</div>
-                <div className="text-xs text-white/60">400 pts</div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Top Prediction Pools */}
-      <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-        <h2 className="mb-4 text-xl font-semibold text-white">
-          Top Prediction Pools
-        </h2>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div className="rounded-lg border border-white/10 bg-white/5 p-4">
-            <div className="mb-3 flex items-center justify-between">
-              <span className="text-sm font-medium text-white">Football</span>
-              <span className="text-xs text-white/60">Live</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-full bg-blue-500"></div>
-                <span className="text-sm text-white">Benfica</span>
-              </div>
-              <div className="text-center">
-                <div className="text-lg font-bold text-white">2-1</div>
-                <div className="text-xs text-white/60">Final</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-white">FCB</span>
-                <div className="h-8 w-8 rounded-full bg-red-500"></div>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-lg border border-white/10 bg-white/5 p-4">
-            <div className="mb-3 flex items-center justify-between">
-              <span className="text-sm font-medium text-white">Basketball</span>
-              <span className="text-xs text-white/60">Upcoming</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-full bg-orange-500"></div>
-                <span className="text-sm text-white">Lakers</span>
-              </div>
-              <div className="text-center">
-                <div className="text-lg font-bold text-white">vs</div>
-                <div className="text-xs text-white/60">19:30</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-white">Warriors</span>
-                <div className="h-8 w-8 rounded-full bg-yellow-500"></div>
-              </div>
-            </div>
-          </div>
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <label className="text-[18px] font-semibold text-white">
+            Top Prediction Pools
+          </label>
+          <label className="text-[#1FE6E5] hover:text-[#1FE6E5]/80">
+            View All &gt;&gt;
+          </label>
+        </div>
+        <div className="flex justify-between gap-6">
+          {predictionPoolsData.map((pool) => (
+            <Image
+              src={pool.image}
+              alt={pool.title}
+              height={800}
+              width={800}
+              className="w-full h-full"
+            />
+          ))}
         </div>
       </div>
     </div>
