@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import {
   Clock,
   Trophy,
@@ -244,9 +245,10 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {regularPredictions.map((prediction) => (
-              <div
+              <Link
                 key={prediction.id}
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm hover:border-cyan-400/40 transition-all duration-500 hover:scale-[1.03] hover:shadow-xl hover:shadow-cyan-500/10"
+                href={`/prediction/${prediction.id}`}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm hover:border-cyan-400/40 transition-all duration-500 hover:scale-[1.03] hover:shadow-xl hover:shadow-cyan-500/10 block"
                 onMouseEnter={() => setHoveredCard(prediction.id)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
@@ -353,7 +355,7 @@ export default function HomePage() {
                     </Button>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
