@@ -21,7 +21,7 @@ export function Sidebar() {
   );
 
   return (
-    <aside className="hidden sticky top-[112px] h-[calc(100vh-112px)] overflow-y-auto shrink-0 border border-white/10 bg-gradient-to-b from-[#1b1d33] to-[#11131f] md:block py-6">
+    <aside className="hidden sticky top-[112px] h-[calc(100vh-112px)] overflow-y-auto sidebar-scroll shrink-0 border border-white/10 bg-gradient-to-b from-[#1b1d33] to-[#11131f] md:block py-6">
       <div className="flex flex-col gap-4">
         <div className="border-white/10 p-6">
           <div className="flex items-center justify-between bg-white/5 py-3 px-4 rounded-md">

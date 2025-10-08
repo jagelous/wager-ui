@@ -1,7 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { LeaderboardModal } from "@/components/modals/LeaderboardModal";
+import * as React from "react";
 
 export default function PrizePoolPage() {
+  const [leaderboardOpen, setLeaderboardOpen] = React.useState(false);
   const predictionPoolsData = [
     {
       id: 1,
@@ -167,9 +173,13 @@ export default function PrizePoolPage() {
             <label className="text-[18px] font-semibold text-white">
               Leaderboard
             </label>
-            <label className="text-[#1FE6E5] hover:text-[#1FE6E5]/80">
+            <Button
+              onClick={() => setLeaderboardOpen(true)}
+              variant="ghost"
+              className="text-[#1FE6E5] p-0 h-auto font-normal hover:bg-transparent hover:text-[#1FE6E5]/80"
+            >
               View All &gt;&gt;
-            </label>
+            </Button>
           </div>
           <div className="grid grid-cols-2">
             {leaderboardData.map((user) => (
@@ -207,9 +217,7 @@ export default function PrizePoolPage() {
           <label className="text-[18px] font-semibold text-white">
             Top Prediction Pools
           </label>
-          <label className="text-[#1FE6E5] hover:text-[#1FE6E5]/80">
-            View All &gt;&gt;
-          </label>
+          <label className="text-[#1FE6E5] ">View All &gt;&gt;</label>
         </div>
         <div className="flex justify-between gap-6">
           {predictionPoolsData.map((pool) => (
@@ -224,6 +232,11 @@ export default function PrizePoolPage() {
           ))}
         </div>
       </div>
+
+      <LeaderboardModal
+        open={leaderboardOpen}
+        onOpenChange={setLeaderboardOpen}
+      />
     </div>
   );
 }

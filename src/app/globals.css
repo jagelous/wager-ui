@@ -120,3 +120,54 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Beautiful Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(42, 42, 58, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #1FE6E5 0%, #9A2BD8 100%);
+  border-radius: 10px;
+  border: 2px solid rgba(42, 42, 58, 0.3);
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #2AF0EF 0%, #B03AE8 100%);
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(31, 230, 229, 0.3);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(180deg, #1FE6E5 0%, #9A2BD8 100%);
+  transform: scale(0.95);
+}
+
+/* Firefox scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1FE6E5 rgba(42, 42, 58, 0.3);
+}
+
+/* Smooth scrolling for all elements */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for specific components */
+.leaderboard-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #1FE6E5 0%, #9A2BD8 100%);
+  border-radius: 10px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #1FE6E5 0%, #9A2BD8 100%);
+  border-radius: 10px;
+}
