@@ -6,9 +6,11 @@ import { usePathname } from "next/navigation";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { CreatePredictionModal } from "@/components/modals/CreatePredictionModal";
+import { BuyTokensModal } from "@/components/modals/BuyTokensModal";
 
 export function Sidebar() {
   const [open, setOpen] = React.useState(false);
+  const [buyTokensOpen, setBuyTokensOpen] = React.useState(false);
   const pathname = usePathname();
 
   const Category = ({ icon, label }: { icon: string; label: string }) => (
@@ -28,7 +30,7 @@ export function Sidebar() {
               <span className="text-2xl">2,921</span>
             </div>
             <Button
-              onClick={() => setOpen(true)}
+              onClick={() => setBuyTokensOpen(true)}
               className="size-8 rounded-md bg-[#1FE6E5] p-0 text-black hover:bg-[#1FE6E5]/90"
             >
               +
@@ -106,6 +108,7 @@ export function Sidebar() {
       </div>
 
       <CreatePredictionModal open={open} onOpenChange={setOpen} />
+      <BuyTokensModal open={buyTokensOpen} onOpenChange={setBuyTokensOpen} />
     </aside>
   );
 }
