@@ -173,8 +173,11 @@ export default function PrizePoolPage() {
           </div>
           <div className="grid grid-cols-2">
             {leaderboardData.map((user) => (
-              <div className="p-4 bg-black/10 border border-white/10 rounded-lg">
-                <div key={user.id} className="flex items-center gap-4">
+              <div
+                key={user.id}
+                className="p-4 bg-black/10 border border-white/10 rounded-lg"
+              >
+                <div className="flex items-center gap-4">
                   <Avatar className="h-12 w-12">
                     <AvatarImage src="" alt={user.name} />
                     <AvatarFallback
@@ -211,6 +214,7 @@ export default function PrizePoolPage() {
         <div className="flex justify-between gap-6">
           {predictionPoolsData.map((pool) => (
             <Image
+              key={pool.id}
               src={pool.image}
               alt={pool.title}
               height={800}

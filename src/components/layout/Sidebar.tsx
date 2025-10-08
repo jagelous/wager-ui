@@ -5,13 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { CreatePredictionModal } from "@/components/modals/CreatePredictionModal";
 
 export function Sidebar() {
   const [open, setOpen] = React.useState(false);
@@ -33,35 +27,19 @@ export function Sidebar() {
               <Image src="/icon/coin.svg" alt="Coin" width={32} height={32} />
               <span className="text-2xl">2,921</span>
             </div>
-            <Dialog open={open} onOpenChange={setOpen}>
-              <DialogTrigger asChild>
-                <Button
-                  onClick={() => setOpen(true)}
-                  className="size-8 rounded-md bg-[#1FE6E5] p-0 text-black hover:bg-[#1FE6E5]/90"
-                >
-                  +
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Create a prediction</DialogTitle>
-                </DialogHeader>
-                <div className="text-sm text-muted-foreground">
-                  Put your create prediction form here.
-                </div>
-              </DialogContent>
-            </Dialog>
+            <Button
+              onClick={() => setOpen(true)}
+              className="size-8 rounded-md bg-[#1FE6E5] p-0 text-black hover:bg-[#1FE6E5]/90"
+            >
+              +
+            </Button>
           </div>
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <Button
-                onClick={() => setOpen(true)}
-                className="mt-4 h-10 w-full rounded-md bg-[#1FE6E5] text-black hover:bg-[#1FE6E5]/90"
-              >
-                Create a Prediction
-              </Button>
-            </DialogTrigger>
-          </Dialog>
+          <Button
+            onClick={() => setOpen(true)}
+            className="mt-4 h-10 w-full rounded-md bg-[#1FE6E5] text-black hover:bg-[#1FE6E5]/90"
+          >
+            Create a Prediction
+          </Button>
         </div>
 
         <nav className="flex flex-col gap-4 text-sm text-white/80">
@@ -126,6 +104,8 @@ export function Sidebar() {
           <Category icon="crypto" label="Crypto" />
         </div>
       </div>
+
+      <CreatePredictionModal open={open} onOpenChange={setOpen} />
     </aside>
   );
 }
