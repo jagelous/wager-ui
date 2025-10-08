@@ -43,14 +43,14 @@ export function LeaderboardModal({
 
   const getRowBackgroundColor = (rank: number, isCurrentUser: boolean) => {
     if (isCurrentUser)
-      return "bg-gradient-to-r from-purple-500/20 to-purple-600/20 border-purple-400/30";
+      return "bg-gradient-to-r from-purple-500/20 to-purple-600/20 border-purple-400/30 hover:from-purple-500/30 hover:to-purple-600/30 hover:border-purple-400/50";
     if (rank === 1)
-      return "bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 border-yellow-400/30";
+      return "bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 border-yellow-400/30 hover:from-yellow-500/30 hover:to-yellow-600/30 hover:border-yellow-400/50";
     if (rank === 2)
-      return "bg-gradient-to-r from-gray-400/20 to-gray-500/20 border-gray-300/30";
+      return "bg-gradient-to-r from-gray-400/20 to-gray-500/20 border-gray-300/30 hover:from-gray-400/30 hover:to-gray-500/30 hover:border-gray-300/50";
     if (rank === 3)
-      return "bg-gradient-to-r from-amber-600/20 to-amber-700/20 border-amber-500/30";
-    return "bg-white/5 border-white/10";
+      return "bg-gradient-to-r from-amber-600/20 to-amber-700/20 border-amber-500/30 hover:from-amber-600/30 hover:to-amber-700/30 hover:border-amber-500/50";
+    return "bg-white/5 border-white/10 hover:bg-gradient-to-r hover:from-cyan-500/20 hover:to-blue-500/20 hover:border-cyan-400/30";
   };
 
   const filteredData = leaderboardData.filter((entry) =>
@@ -125,7 +125,7 @@ export function LeaderboardModal({
             {currentData.map((entry) => (
               <div
                 key={entry.id}
-                className={`flex items-center gap-4 p-4 rounded-lg border transition-all ${getRowBackgroundColor(
+                className={`flex items-center gap-4 p-4 rounded-lg border transition-all duration-300 ease-in-out cursor-pointer  hover:shadow-lg hover:shadow-cyan-500/10 ${getRowBackgroundColor(
                   entry.rank,
                   entry.isCurrentUser || false
                 )}`}
