@@ -6,9 +6,13 @@ import { MenuIcon, SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import * as React from "react";
+import { SignUpModal } from "@/components/modals/SignUpModal";
+import { LoginModal } from "@/components/modals/LoginModal";
 
 export function Header() {
   const [query, setQuery] = React.useState("");
+  const [signUpOpen, setSignUpOpen] = React.useState(false);
+  const [loginOpen, setLoginOpen] = React.useState(false);
 
   return (
     <header className="sticky z-20 top-0 py-6 w-full bg-[#16182c]">
@@ -44,13 +48,21 @@ export function Header() {
         </div>
 
         <div className="ml-auto flex items-center gap-3">
-          <Button className="h-12 w-[128px] rounded-md bg-[#1FE6E5] px-5 text-black hover:bg-[#1FE6E5]/90">
+          <Button
+            onClick={() => setSignUpOpen(true)}
+            className="h-12 w-[128px] rounded-md bg-[#1FE6E5] px-5 text-black hover:bg-[#1FE6E5]/90"
+          >
             Sign Up
           </Button>
-          <Button className="h-12 w-[128px] rounded-md bg-[#9A2BD8] px-5 text-white hover:bg-[#9A2BD8]/90">
+          <Button
+            onClick={() => setLoginOpen(true)}
+            className="h-12 w-[128px] rounded-md bg-[#9A2BD8] px-5 text-white hover:bg-[#9A2BD8]/90"
+          >
             Login
           </Button>
         </div>
+        <SignUpModal open={signUpOpen} onOpenChange={setSignUpOpen} />
+        <LoginModal open={loginOpen} onOpenChange={setLoginOpen} />
       </div>
     </header>
   );

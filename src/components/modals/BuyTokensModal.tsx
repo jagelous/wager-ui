@@ -29,7 +29,7 @@ export function BuyTokensModal({ open, onOpenChange }: BuyTokensModalProps) {
   const [selectedCurrency, setSelectedCurrency] = React.useState("USDC");
   const [balance, setBalance] = React.useState("0");
 
-  const conversionRate = 100; // 1 USD = 100 $VS
+  const conversionRate = 20000; // 1 USD = 20,000 $VS
 
   const handleUsdChange = (value: string) => {
     setUsdAmount(value);
@@ -95,10 +95,10 @@ export function BuyTokensModal({ open, onOpenChange }: BuyTokensModalProps) {
                 value={selectedCurrency}
                 onValueChange={setSelectedCurrency}
               >
-                <SelectTrigger className="absolute right-2 top-1/2 -translate-y-1/2 w-24 bg-white/5 border-[#1FE6E5] text-white h-10">
+                <SelectTrigger className="absolute right-2 top-1/2 -translate-y-1/2 w-24 bg-[#1a1a2e] border-none  text-white h-10">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-[#1a1a2e] border-[#1FE6E5]">
+                <SelectContent className="bg-[#1a1a2e]">
                   <SelectItem value="USDC" className="text-white">
                     USDC
                   </SelectItem>
@@ -119,7 +119,7 @@ export function BuyTokensModal({ open, onOpenChange }: BuyTokensModalProps) {
                 placeholder="0"
                 className="bg-white/5 border-[#1FE6E5] text-white placeholder:text-white/40 h-12 text-lg pr-28"
               />
-              <div className="absolute right-2 top-1/2 -translate-y-1/2 w-12 border rounded-md flex justify-center items-center bg-white/5 border-[#1FE6E5] text-white h-8">
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 w-12 border rounded-md flex justify-center items-center bg-[#1a1a2e] border-none text-white h-8">
                 VS
               </div>
             </div>
