@@ -11,6 +11,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Image from "next/image";
+import { GoogleSignInButton } from "@/components/auth/GoogleSignInButton";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 interface LoginModalProps {
   open: boolean;
@@ -18,6 +20,7 @@ interface LoginModalProps {
 }
 
 export function LoginModal({ open, onOpenChange }: LoginModalProps) {
+  const { login } = useAuth();
   const [connecting, setConnecting] = React.useState<
     null | "google" | "solana"
   >(null);
@@ -25,13 +28,13 @@ export function LoginModal({ open, onOpenChange }: LoginModalProps) {
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
 
-  const handleGoogle = async () => {
-    try {
-      setConnecting("google");
-      window.location.href = "/api/auth/google";
-    } finally {
-      setConnecting(null);
-    }
+  const handleGoogleSuccess = async () => {
+    // The GoogleSignInButton already calls login(), so we just need to close the modal
+    onOpenChange(false);
+  };
+
+  const handleGoogleError = (error: string) => {
+    alert(`Google sign-in failed: ${error}`);
   };
 
   const handleConnectSol = async () => {
@@ -46,6 +49,9 @@ export function LoginModal({ open, onOpenChange }: LoginModalProps) {
       const resp = await provider.connect();
       if (resp?.publicKey) {
         console.log("Logged in with Solana:", resp.publicKey.toString());
+        // TODO: Send wallet info to backend for authentication
+        // For now, simulate successful login
+        await login();
         onOpenChange(false);
       }
     } catch (err) {
@@ -63,7 +69,11 @@ export function LoginModal({ open, onOpenChange }: LoginModalProps) {
     }
     try {
       console.log("Manual login:", { identifier });
+      // TODO: Implement actual API call
       // await fetch('/api/auth/login', { method: 'POST', body: JSON.stringify({ identifier, password }) })
+
+      // For now, simulate successful login
+      await login();
       onOpenChange(false);
     } catch (err) {
       console.error(err);
@@ -90,20 +100,11 @@ export function LoginModal({ open, onOpenChange }: LoginModalProps) {
         </DialogHeader>
 
         <div className="flex flex-col gap-4">
-          <Button
-            onClick={handleGoogle}
+          <GoogleSignInButton
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
             disabled={connecting !== null}
-            className="h-12 w-full bg-[#9A2BD8] hover:bg-[#9A2BD8]/90"
-          >
-            <Image
-              src="/icon/google.svg"
-              alt="Google"
-              width={20}
-              height={20}
-              className="mr-2"
-            />
-            Continue with Google
-          </Button>
+          />
 
           <div className="flex items-center gap-2 text-white/60">
             <div className="h-px flex-1 bg-white/10" />

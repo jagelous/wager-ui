@@ -4,6 +4,8 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Footer } from "@/components/layout/Footer";
+import { GoogleOAuthProviderWrapper } from "@/components/auth/GoogleOAuthProvider";
+import { AuthProvider } from "@/components/auth/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,16 +33,20 @@ export default function RootLayout({
         suppressHydrationWarning={true}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex min-h-screen flex-col bg-gradient-to-b from-[#181b31] via-[#232149] via-[#202042] to-[#181b31] text-white">
-          <Header />
-          <div className="flex w-full flex-1">
-            <Sidebar />
-            <main className="min-h-[60vh] flex-1 border border-white/10 bg-transparent p-4">
-              {children}
-            </main>
-          </div>
-          {/* <Footer /> */}
-        </div>
+        <GoogleOAuthProviderWrapper>
+          <AuthProvider>
+            <div className="flex min-h-screen flex-col bg-gradient-to-b from-[#181b31] via-[#232149] via-[#202042] to-[#181b31] text-white">
+              <Header />
+              <div className="flex w-full flex-1">
+                <Sidebar />
+                <main className="min-h-[60vh] flex-1 border border-white/10 bg-transparent p-4">
+                  {children}
+                </main>
+              </div>
+              {/* <Footer /> */}
+            </div>
+          </AuthProvider>
+        </GoogleOAuthProviderWrapper>
       </body>
     </html>
   );

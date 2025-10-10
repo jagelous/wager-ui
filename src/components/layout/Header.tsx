@@ -8,8 +8,10 @@ import { Input } from "@/components/ui/input";
 import * as React from "react";
 import { SignUpModal } from "@/components/modals/SignUpModal";
 import { LoginModal } from "@/components/modals/LoginModal";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 export function Header() {
+  const { user, logout } = useAuth();
   const [query, setQuery] = React.useState("");
   const [signUpOpen, setSignUpOpen] = React.useState(false);
   const [loginOpen, setLoginOpen] = React.useState(false);
@@ -48,18 +50,40 @@ export function Header() {
         </div>
 
         <div className="ml-auto flex items-center gap-3">
-          <Button
-            onClick={() => setSignUpOpen(true)}
-            className="h-12 w-[128px] rounded-md bg-[#1FE6E5] px-5 text-black hover:bg-[#1FE6E5]/90"
-          >
-            Sign Up
-          </Button>
-          <Button
-            onClick={() => setLoginOpen(true)}
-            className="h-12 w-[128px] rounded-md bg-[#9A2BD8] px-5 text-white hover:bg-[#9A2BD8]/90"
-          >
-            Login
-          </Button>
+          {user ? (
+            <div className="flex items-center gap-4">
+              {user.picture && (
+                <Image
+                  src={user.picture}
+                  alt={user.name}
+                  width={48}
+                  height={48}
+                  className="rounded-full"
+                />
+              )}
+              <Button
+                onClick={logout}
+                className="h-12 w-[128px] rounded-md bg-red-600 px-5 text-white hover:bg-red-700"
+              >
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <>
+              <Button
+                onClick={() => setSignUpOpen(true)}
+                className="h-12 w-[128px] rounded-md bg-[#1FE6E5] px-5 text-black hover:bg-[#1FE6E5]/90"
+              >
+                Sign Up
+              </Button>
+              <Button
+                onClick={() => setLoginOpen(true)}
+                className="h-12 w-[128px] rounded-md bg-[#9A2BD8] px-5 text-white hover:bg-[#9A2BD8]/90"
+              >
+                Login
+              </Button>
+            </>
+          )}
         </div>
         <SignUpModal open={signUpOpen} onOpenChange={setSignUpOpen} />
         <LoginModal open={loginOpen} onOpenChange={setLoginOpen} />

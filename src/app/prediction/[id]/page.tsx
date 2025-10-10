@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useAuth } from "@/components/auth/AuthProvider";
 import {
   Clock,
   Trophy,
@@ -80,6 +81,7 @@ const predictionData = {
 };
 
 export default function PredictionPage() {
+  const { user, loading } = useAuth();
   const [selectedTeam, setSelectedTeam] = useState("Real Madrid");
   const [amount, setAmount] = useState("100");
   const [comment, setComment] = useState("");
@@ -99,6 +101,27 @@ export default function PredictionPage() {
   };
 
   const payout = selectedTeam === "Real Madrid" ? "$142" : "$240";
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-white bg-gradient-to-br from-[#0a0a0f] via-[#1a1a2e] via-[#16213e] to-[#0a0a0f]">
+        <div className="text-xl">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-white bg-gradient-to-br from-[#0a0a0f] via-[#1a1a2e] via-[#16213e] to-[#0a0a0f]">
+        <div className="bg-white/5 border border-white/10 p-8 rounded-2xl text-center">
+          <div className="text-xl mb-4">Please sign in to view this page.</div>
+          <div className="text-sm text-white/60">
+            You need to be authenticated to access prediction pages.
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0a0f] via-[#1a1a2e] via-[#16213e] to-[#0a0a0f] text-white">

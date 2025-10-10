@@ -11,6 +11,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Image from "next/image";
+import { GoogleSignInButton } from "@/components/auth/GoogleSignInButton";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 interface SignUpModalProps {
   open: boolean;
@@ -18,6 +20,7 @@ interface SignUpModalProps {
 }
 
 export function SignUpModal({ open, onOpenChange }: SignUpModalProps) {
+  const { login } = useAuth();
   const [connecting, setConnecting] = React.useState<
     null | "google" | "evm" | "solana"
   >(null);
@@ -28,15 +31,13 @@ export function SignUpModal({ open, onOpenChange }: SignUpModalProps) {
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
 
-  const handleGoogle = async () => {
-    try {
-      setConnecting("google");
-      // If your app uses NextAuth or a custom route, redirect there.
-      // This avoids coupling to a specific auth library in this UI-only task.
-      window.location.href = "/api/auth/google";
-    } finally {
-      setConnecting(null);
-    }
+  const handleGoogleSuccess = async () => {
+    // The GoogleSignInButton already calls login(), so we just need to close the modal
+    onOpenChange(false);
+  };
+
+  const handleGoogleError = (error: string) => {
+    alert(`Google sign-in failed: ${error}`);
   };
 
   const handleConnectEvm = async () => {
@@ -54,6 +55,9 @@ export function SignUpModal({ open, onOpenChange }: SignUpModalProps) {
       });
       if (accounts && accounts[0]) {
         console.log("Connected EVM account:", accounts[0]);
+        // TODO: Send wallet info to backend for authentication
+        // For now, simulate successful login
+        await login();
         onOpenChange(false);
       }
     } catch (err) {
@@ -77,6 +81,9 @@ export function SignUpModal({ open, onOpenChange }: SignUpModalProps) {
       const resp = await provider.connect();
       if (resp?.publicKey) {
         console.log("Connected Solana publicKey:", resp.publicKey.toString());
+        // TODO: Send wallet info to backend for authentication
+        // For now, simulate successful login
+        await login();
         onOpenChange(false);
       }
     } catch (err) {
@@ -99,7 +106,11 @@ export function SignUpModal({ open, onOpenChange }: SignUpModalProps) {
     // Post to your API route to create the user account
     try {
       console.log("Manual sign up:", { email, username });
+      // TODO: Implement actual API call
       // await fetch('/api/auth/signup', { method: 'POST', body: JSON.stringify({ email, username, password }) })
+
+      // For now, simulate successful signup and login
+      await login();
       onOpenChange(false);
     } catch (err) {
       console.error(err);
@@ -126,20 +137,11 @@ export function SignUpModal({ open, onOpenChange }: SignUpModalProps) {
         </DialogHeader>
 
         <div className="flex flex-col gap-4">
-          <Button
-            onClick={handleGoogle}
+          <GoogleSignInButton
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
             disabled={connecting !== null}
-            className="h-12 w-full bg-[#9A2BD8] hover:bg-[#9A2BD8]/90"
-          >
-            <Image
-              src="/icon/google.svg"
-              alt="Google"
-              width={20}
-              height={20}
-              className="mr-2"
-            />
-            Continue with Google
-          </Button>
+          />
 
           <div className="flex items-center gap-2 text-white/60">
             <div className="h-px flex-1 bg-white/10" />
