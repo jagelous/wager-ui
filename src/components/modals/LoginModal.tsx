@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import Image from "next/image";
 import { GoogleSignInButton } from "@/components/auth/GoogleSignInButton";
+import { SolanaWalletButton } from "@/components/auth/SolanaWalletButton";
 import { useAuth } from "@/components/auth/AuthProvider";
 
 interface LoginModalProps {
@@ -37,29 +38,13 @@ export function LoginModal({ open, onOpenChange }: LoginModalProps) {
     alert(`Google sign-in failed: ${error}`);
   };
 
-  const handleConnectSol = async () => {
-    try {
-      setConnecting("solana");
-      const anyWindow = window as any;
-      const provider = anyWindow.solana;
-      if (!provider || !provider.isPhantom) {
-        alert("No Solana wallet (Phantom) found.");
-        return;
-      }
-      const resp = await provider.connect();
-      if (resp?.publicKey) {
-        console.log("Logged in with Solana:", resp.publicKey.toString());
-        // TODO: Send wallet info to backend for authentication
-        // For now, simulate successful login
-        await login();
-        onOpenChange(false);
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Failed to connect Solana wallet");
-    } finally {
-      setConnecting(null);
-    }
+  const handleSolanaSuccess = async () => {
+    // The SolanaWalletButton already calls login(), so we just need to close the modal
+    onOpenChange(false);
+  };
+
+  const handleSolanaError = (error: string) => {
+    alert(`Solana wallet connection failed: ${error}`);
   };
 
   const handleManualLogin = async () => {
@@ -158,14 +143,12 @@ export function LoginModal({ open, onOpenChange }: LoginModalProps) {
             <span className="text-xs">OR</span>
             <div className="h-px flex-1 bg-white/10" />
           </div>
-          <Button
-            onClick={handleConnectSol}
+          <SolanaWalletButton
+            onSuccess={handleSolanaSuccess}
+            onError={handleSolanaError}
             disabled={connecting !== null}
-            variant="outline"
-            className="h-12 bg-white/5 border-white/10 text-white hover:bg-white/10"
-          >
-            Login with Solana Wallet
-          </Button>
+            mode="login"
+          />
         </div>
       </DialogContent>
     </Dialog>
